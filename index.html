@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#151515">
+  <meta name="description" content="Veja o que a comunidade está jogando e organize sua lista pessoal no GAMELIST.">
+  <title>GAMELIST — Comunidade de jogos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="dist/main.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="GAMELIST início">GAMELIST</a>
+    <label class="search-box">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 4 4"></path></svg>
+      <input id="busca" type="search" placeholder="Buscar jogos da comunidade..." aria-label="Buscar jogos por título">
+    </label>
+    <button class="button button-primary" id="abrir-cadastro" type="button">Cadastrar jogo <span aria-hidden="true">+</span></button>
+  </header>
+
+  <div class="app-layout">
+    <nav class="sidebar" aria-label="Navegação principal">
+      <button class="nav-link active" id="nav-catalogo" type="button">Comunidade</button>
+      <button class="nav-link" id="nav-lista" type="button">Minha lista</button>
+      <p class="sidebar-note">Descubra seu próximo jogo favorito.</p>
+    </nav>
+
+    <main class="main-content">
+      <section id="tela-catalogo" aria-labelledby="titulo-catalogo">
+        <div class="page-heading">
+          <p class="eyebrow">O QUE ESTÁ EM ALTA</p>
+          <h1 id="titulo-catalogo">O que a comunidade está jogando?</h1>
+          <p class="subtitle">Veja o que os outros jogadores estão curtindo e monte a sua própria lista!</p>
+        </div>
+        <div class="filters">
+          <label for="filtro-categoria">Categoria</label>
+          <select id="filtro-categoria" aria-label="Filtrar por categoria">
+            <option value="Todas">Todas as categorias</option>
+            <option>Ação</option><option>Aventura</option><option>Corrida</option>
+            <option>Esporte</option><option>Estratégia</option><option>Indie</option><option>RPG</option>
+          </select>
+        </div>
+        <div class="game-grid" id="grade-catalogo" aria-live="polite"></div>
+      </section>
+
+      <section id="tela-lista" aria-labelledby="titulo-lista" hidden>
+        <div class="page-heading">
+          <h1 id="titulo-lista">Minha lista</h1>
+          <p class="subtitle">Acompanhe o que você quer jogar, está jogando ou já terminou.</p>
+        </div>
+        <div class="summary" id="resumo-lista" aria-live="polite"></div>
+        <div class="game-grid" id="grade-lista" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-layer" id="modal-cadastro" hidden>
+    <section class="modal form-modal" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-cadastro">
+      <button class="icon-button close-modal" type="button" aria-label="Fechar cadastro">×</button>
+      <p class="eyebrow">NOVO NO CATÁLOGO</p>
+      <h2 id="titulo-modal-cadastro">Cadastrar jogo</h2>
+      <form id="form-jogo" novalidate>
+        <label for="campo-titulo">Título <span>*</span></label>
+        <input id="campo-titulo" name="titulo" type="text" required maxlength="80">
+        <label for="campo-categoria">Categoria <span>*</span></label>
+        <select id="campo-categoria" name="categoria" required>
+          <option value="">Selecione uma categoria</option>
+          <option>Ação</option><option>Aventura</option><option>Corrida</option>
+          <option>Esporte</option><option>Estratégia</option><option>Indie</option><option>RPG</option>
+        </select>
+        <label for="campo-preco">Preço (R$) <span>*</span></label>
+        <input id="campo-preco" name="preco" type="number" min="0" step="0.01" inputmode="decimal" required>
+
+        <label for="campo-capa">URL da capa <span class="optional">(opcional)</span></label>
+        <input id="campo-capa" name="capa" type="url" placeholder="https://">
+
+        <label for="campo-descricao">Descrição <span class="optional">(opcional)</span></label>
+        <textarea id="campo-descricao" name="descricao" rows="3" maxlength="400"></textarea>
+
+        <label for="campo-estado">Estado</label>
+        <select id="campo-estado" name="estado">
+          <option value="fora">Fora da minha lista</option>
+          <option value="quero-jogar">Quero jogar</option>
+          <option value="jogando">Jogando</option>
+          <option value="ja-joguei">Já joguei</option>
+        </select>
+        <small class="field-error" id="erro-cadastro"></small>
+        <button class="button button-primary submit-button" type="submit">Cadastrar jogo</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-layer" id="modal-detalhes" hidden>
+    <section class="modal details-modal" role="dialog" aria-modal="true" aria-labelledby="detalhe-titulo">
+      <button class="icon-button close-modal" type="button" aria-label="Fechar detalhes">×</button>
+      <div id="conteudo-detalhes"></div>
+    </section>
+  </div>
+
+  <div class="modal-layer" id="modal-edicao" hidden>
+    <section class="modal form-modal" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-edicao">
+      <button class="icon-button close-modal" type="button" aria-label="Fechar edição">×</button>
+      <p class="eyebrow">SUA EXPERIÊNCIA</p>
+      <h2 id="titulo-modal-edicao">Editar detalhes</h2>
+      <form id="form-edicao" novalidate>
+        <label for="campo-nota">Nota <span class="optional">(opcional)</span></label>
+        <select id="campo-nota" name="nota">
+          <option value="">Não informar</option>
+          <option value="1">1/5</option><option value="2">2/5</option>
+          <option value="3">3/5</option><option value="4">4/5</option><option value="5">5/5</option>
+        </select>
+        <label for="campo-preco-pago">Preço pago (R$) <span class="optional">(opcional)</span></label>
+        <input id="campo-preco-pago" name="precoPago" type="number" min="0" step="0.01" inputmode="decimal">
+
+        <label for="campo-loja">Onde comprou</label>
+        <select id="campo-loja" name="loja">
+          <option value="">Não informado</option>
+          <option value="Steam">Steam</option>
+          <option value="Epic Games">Epic Games</option>
+          <option value="PlayStation Store">PlayStation Store</option>
+          <option value="Nintendo eShop">Nintendo eShop</option>
+          <option value="Xbox">Xbox</option>
+          <option value="Mídia física">Mídia física</option>
+          <option value="Outra">Outra</option>
+        </select>
+
+        <label for="campo-comentario">Comentário <span class="optional">(opcional)</span></label>
+        <textarea id="campo-comentario" name="comentario" rows="4" maxlength="280"></textarea>
+        <small class="field-error" id="erro-edicao"></small>
+        <button class="button button-primary submit-button" type="submit">Salvar detalhes</button>
+      </form>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "gamelist-catalogo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Catálogo interativo de jogos desenvolvido com HTML, CSS e TypeScript.",
+  "scripts": {
+    "build": "tsc",
+    "start": "http-server . -p 8080 -c-1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "typescript": "^5.8.3"
+  }
+}
