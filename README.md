@@ -50,4 +50,4 @@ Os dados da comunidade e da lista pessoal ficam em um único array em memória e
 - Refatorar o código para React (facilitar manutenção e escrita, bem como melhorar a estrutura).
 - Criar uma rede social com vários usuários e comentários públicos de verdade. 
 
-Link do vídeo: (adicionar)
+Link do vídeo: 
