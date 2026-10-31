@@ -1,10 +1,11 @@
-# GAMELIST — Rede social simulada de jogos
+# GAMELIST — Catálogo de jogos compartilhado
 
+**Disciplina:** Tópicos Especiais em Desenvolvimento Web | **AV2N1**  
 **Autor:** Vinicius Gomes Damascena
 
 ## Objetivo
 
-Aplicação web que simula uma comunidade de jogadores: explore os jogos que estão jogando, adicione títulos à sua lista pessoal e registre sua experiência. O projeto foi desenvolvido para praticar HTML, CSS, TypeScript, tipos, funções, arrays, DOM e eventos.
+Aplicação web que simula uma comunidade de jogadores onde é possível explorar os jogos que estão jogando, adicionar jogos à sua lista pessoal e registrar sua experiência. O projeto foi desenvolvido para praticar HTML, CSS, TypeScript.
 
 ## Funcionalidades
 
@@ -14,14 +15,13 @@ Aplicação web que simula uma comunidade de jogadores: explore os jogos que est
 - Painel com descrição, categoria, preço, comentários, adição à lista e exclusão confirmada do catálogo.
 - Lista pessoal com alteração de estado, remoção sem excluir do catálogo e resumo por estado.
 - Edição de nota, preço pago, loja e comentários pessoais com validação.
-- Interface responsiva com tema escuro e fonte Poppins carregada pelo Google Fonts.
+- Interface responsiva com tema escuro.
 
-Os dados da comunidade e da lista pessoal ficam em um único array em memória e são reiniciados ao recarregar a página. Nota, preço pago e loja são pessoais e só são armazenados enquanto o jogo estiver na lista; comentários permanecem no jogo quando ele é removido. Comentários guardam autor, texto e data, sem registrar estado. O projeto não usa banco de dados, API, autenticação ou armazenamento local.
+Os dados da comunidade e da lista pessoal ficam em um único array em memória e são reiniciados ao recarregar a página. Nota, preço pago e loja são pessoais e só são armazenados enquanto o jogo estiver na lista; comentários permanecem no jogo quando ele é removido. Comentários guardam autor, texto e data. O projeto não usa banco de dados, API, autenticação ou armazenamento local.
 
 ## Tecnologias
 
-- HTML, CSS e TypeScript (módulos ES2020).
-- [Poppins](https://fonts.google.com/specimen/Poppins), via Google Fonts.
+- HTML, CSS e TypeScript.
 - TypeScript e http-server como dependências de desenvolvimento.
 
 ## Como executar
@@ -44,8 +44,10 @@ Os dados da comunidade e da lista pessoal ficam em um único array em memória e
 
 ## Melhorias futuras
 
+- Ao efetuar um comentário o status atual do jogo na biblioteca de quem comentou deve ser registrado.
 - Integrar uma API real de jogos.
-- Persistir os dados entre acessos.
-- Criar uma rede social com vários usuários e comentários públicos de verdade.
+- Persistir os dados entre acessos (BD). 
+- Refatorar o código para React (facilitar manutenção e escrita, bem como melhorar a estrutura).
+- Criar uma rede social com vários usuários e comentários públicos de verdade. 
 
 Link do vídeo: (adicionar)
